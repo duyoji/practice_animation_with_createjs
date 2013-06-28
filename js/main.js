@@ -1,7 +1,8 @@
 (function (window) {
-	
+
 	// import
 	var PracticeScene = app.views.scenes.PracticeScene;
+	var SpaceScene = app.views.scenes.SpaceScene;
 	var Stage  = createjs.Stage;
 	var Ticker = createjs.Ticker;
 
@@ -9,18 +10,19 @@
 
 	function main(event) {
 		window.removeEventListener("load", main);
-		
+
 		// stageはどこからでもsceneからでも参照できるようにグローバルのappのプロパティとして保持
 		app.stage = new Stage('demoCanvas');
 		app.stage.canvas.width  = window.innerWidth;
 		app.stage.canvas.height = window.innerHeight;
 
 
-		var practiceScene = new PracticeScene();
-		app.stage.addChild(practiceScene);
+		// var initialScene = new PracticeScene();
+		var initialScene = new SpaceScene();
+		app.stage.addChild(initialScene);
 
 
-		//Ticker.setFPS(60);
+		Ticker.setFPS(60);
 		Ticker.addEventListener('tick', handleTick);
 	}
 

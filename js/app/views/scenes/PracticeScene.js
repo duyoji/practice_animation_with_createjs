@@ -1,22 +1,20 @@
 app.views.scenes.PracticeScene = (function () {
 	
 	// import
-	//var Ball      = app.views.Ball;
-	//var Rectangle = app.views.Rectangle;
 	var Arrow     = app.views.Arrow;
 	var Ticker    = createjs.Ticker;   
 	var Container = createjs.Container;   
 	
+	
 	function PracticeScene () {
 		this._arrow = new Arrow();
-		//this._arrow.x = ( app.stage.canvas.width - this._arrow.getWidth() ) / 2;
-		//this._arrow.y = ( app.stage.canvas.height - this._arrow.getHeight() ) / 2;
-		this._arrow.x = Math.floor(app.stage.canvas.width / 2);
-		this._arrow.y = Math.floor(app.stage.canvas.height / 2);
+		this._arrow.x = ( app.stage.canvas.width - this._arrow.getWidth() ) / 2;
+		this._arrow.y = ( app.stage.canvas.height - this._arrow.getHeight() ) / 2;
+		this._speed   = 5;
 
 		this.addChild(this._arrow);
 		addListener.call(this);
-	};
+	}
 
 	PracticeScene.prototype = new Container();
 
@@ -35,8 +33,9 @@ app.views.scenes.PracticeScene = (function () {
 	function addListener() {
 		var self = this;
 		this.onStageMouseMoveHandler = function (event) {
-			self._arrow.rotateWithXandY(event.stageX, event.stageY);
-		}
+			self._arrow.x = event.stageX - self._arrow.getWidth()/2 ;
+			self._arrow.y = event.stageY - self._arrow.getHeight()/2 ;
+		};
 
 		app.stage.addEventListener('stagemousemove', this.onStageMouseMoveHandler);
 	}
