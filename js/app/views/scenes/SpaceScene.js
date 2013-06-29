@@ -16,6 +16,8 @@ app.views.scenes.SpaceScene = (function () {
         this._ship = new Ship();
         this._ship.x = app.stage.canvas.width/2;
         this._ship.y = app.stage.canvas.height/2;
+        this._stars = [];
+
         this.addChild(this._ship);
 
         // set listeners
@@ -28,8 +30,52 @@ app.views.scenes.SpaceScene = (function () {
     SpaceScene.prototype.className = 'SpaceScene';
 
 
+    SpaceScene.prototype.createStar = function () {
+
+        var x = Math.floor(Math.random() * app.stage.canvas.width);
+        var y = Math.floor(Math.random() * app.stage.canvas.height);
+
+        var star = new createjs.Shape();
+        star.graphics
+            .clear()
+            .setStrokeStyle(1)
+            .moveTo(0, 0)
+            .beginStroke(createjs.Graphics.getRGB(255,255,255))
+            .lineTo(1, 1);
+
+        star.x = x;
+        star.y = y;
+        star.alpha = 0;
+        star.isMaxAlpha = false;
+        this._stars.unshift(star);
+        this.addChild(star);
+    };
+
+
     function update (event){
+        this.createStar();
         this._ship.update();
+
+        var i;
+
+        for (i = this._stars.length - 1; 0 <= i; i--) {
+            var star = this._stars[i];
+
+            if (star.isMaxAlpha) {
+                star.alpha -= 0.02;
+                if (star.alpha <= 0) {
+                    star.parent.removeChild(star);
+                    this._stars.splice(i,1);
+                }
+            } else {
+                star.alpha += 0.02;
+                if (star.alpha >= 1) {
+                    star.isMaxAlpha = true;
+                }
+            }
+        }
+
+        console.log('stars : ' + this._stars.length);
     };
 
     function onKeyDown (event){

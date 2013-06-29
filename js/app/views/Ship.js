@@ -81,7 +81,6 @@ app.views.Ship = (function () {
 
     Ship.prototype.rotate = function (angle) {
         this._container.rotation += angle;
-        this.update();
     };
 
     /**
