@@ -46,36 +46,35 @@ app.views.scenes.SpaceScene = (function () {
         star.x = x;
         star.y = y;
         star.alpha = 0;
-        star.isMaxAlpha = false;
+        star.isAlphaDown = false;
         this._stars.unshift(star);
         this.addChild(star);
     };
 
 
     function update (event){
-        this.createStar();
         this._ship.update();
+        this.createStar();
 
         var i;
 
         for (i = this._stars.length - 1; 0 <= i; i--) {
             var star = this._stars[i];
 
-            if (star.isMaxAlpha) {
-                star.alpha -= 0.02;
+            if (star.isAlphaDown) {
+                star.alpha -= 0.025;
                 if (star.alpha <= 0) {
                     star.parent.removeChild(star);
                     this._stars.splice(i,1);
                 }
             } else {
-                star.alpha += 0.02;
+                star.alpha += 0.025;
                 if (star.alpha >= 1) {
-                    star.isMaxAlpha = true;
+                    star.isAlphaDown = true;
                 }
             }
         }
 
-        console.log('stars : ' + this._stars.length);
     };
 
     function onKeyDown (event){
