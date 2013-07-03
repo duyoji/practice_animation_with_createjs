@@ -1,8 +1,9 @@
 (function (window) {
 
 	// import
-	var PracticeScene = app.views.scenes.PracticeScene;
-	var SpaceScene = app.views.scenes.SpaceScene;
+	// var PracticeScene = app.views.scenes.PracticeScene;
+	// var SpaceScene = app.views.scenes.SpaceScene;
+	var SpringScene = app.views.scenes.SpringScene;
 	var Stage  = createjs.Stage;
 	var Ticker = createjs.Ticker;
 
@@ -18,7 +19,8 @@
 
 
 		// var initialScene = new PracticeScene();
-		var initialScene = new SpaceScene();
+		// var initialScene = new SpaceScene();
+		var initialScene = new SpringScene();
 		app.stage.addChild(initialScene);
 
 
